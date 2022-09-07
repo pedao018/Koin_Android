@@ -14,4 +14,10 @@
         android:layout_height="wrap_content"
         android:text="Click Test" />
 
+    <Button
+        android:id="@+id/btnTestAnotation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click Anotation" />
+
 </LinearLayout>

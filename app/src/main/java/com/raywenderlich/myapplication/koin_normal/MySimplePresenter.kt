@@ -1,4 +1,4 @@
-package com.raywenderlich.myapplication
+package com.raywenderlich.myapplication.koin_normal
 
 class MySimplePresenter(val repo: HelloRepository) {
 

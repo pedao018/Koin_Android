@@ -1,4 +1,4 @@
-package com.raywenderlich.myapplication
+package com.raywenderlich.myapplication.koin_normal
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
