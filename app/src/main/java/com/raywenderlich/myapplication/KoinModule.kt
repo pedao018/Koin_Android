@@ -1,5 +1,6 @@
 package com.raywenderlich.myapplication
 
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -13,6 +14,9 @@ val appModule = module {
 
     //We declare our MySimplePresenter class as factory to have a new instance created each time our Activity need one.
     factory(qualifier = named(KoinConstants.MySimplePresenter_Factory)) { MySimplePresenter(get()) }
+
+    //we declare our MyViewModel class as a viewModel in a module. Koin will give a MyViewModel to the lifecycle ViewModelFactory and help bind it to the current component.
+    viewModel { MyViewModel(get()) }
 }
 
 object KoinConstants {

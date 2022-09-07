@@ -6,6 +6,7 @@ import android.util.Log
 import com.raywenderlich.myapplication.databinding.ActivityMainBinding
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,12 @@ class MainActivity : AppCompatActivity() {
 
     //The get() function is here to retrieve directly an instance (non lazy)
     val getPresenter: MySimplePresenter = get(named(KoinConstants.MySimplePresenter_Single))
+
+    //The by viewModel() function allows us to retrieve a ViewModel instance from Koin, linked to the Android ViewModelFactory.
+    val myViewModel: MyViewModel by viewModel()
+
+    //The getViewModel() function is here to retrieve directly an instance (non lazy)
+    //val getViewModel: MyViewModel = getViewModel()
 
     private lateinit var binding: ActivityMainBinding
 
@@ -39,16 +46,39 @@ class MainActivity : AppCompatActivity() {
         Log.e("hahaha", "7${getPresenter.sayHello()}")
         Log.e("hahaha", "8${getPresenter.sayHello()}")
         Log.e("hahaha", "9${getPresenter.sayHello()}")
-        /*
-        2022-09-07 13:20:50.412 9804-9804/com.raywenderlich.myapplication E/hahaha: 1Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@f794692
-        2022-09-07 13:20:50.858 9804-9804/com.raywenderlich.myapplication E/hahaha: 2Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@f794692
-        2022-09-07 13:20:53.210 9804-9804/com.raywenderlich.myapplication E/hahaha: 3Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@f794692
-        2022-09-07 13:20:55.948 9804-9804/com.raywenderlich.myapplication E/hahaha: 4Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@10fb863
-        2022-09-07 13:21:06.892 9804-9804/com.raywenderlich.myapplication E/hahaha: 5Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@10fb863
-        2022-09-07 13:21:06.892 9804-9804/com.raywenderlich.myapplication E/hahaha: 6Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@10fb863
-        2022-09-07 13:21:06.892 9804-9804/com.raywenderlich.myapplication E/hahaha: 7Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@f794692
-        2022-09-07 13:21:06.893 9804-9804/com.raywenderlich.myapplication E/hahaha: 8Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@f794692
-        2022-09-07 13:21:06.893 9804-9804/com.raywenderlich.myapplication E/hahaha: 9Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@f794692
+
+
+        Log.e("hahaha", "10${myViewModel.sayHello()}")
+        Log.e("hahaha", "11${myViewModel.sayHello()}")
+        Log.e("hahaha", "12${myViewModel.sayHello()}")
+        /* Truoc khi xoay man hinh
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 1Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 2Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 3Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 4Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@ed0074b
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 5Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@ed0074b
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 6Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@ed0074b
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 7Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 8Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:51:39.639 11248-11248/com.raywenderlich.myapplication E/hahaha: 9Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:51:39.641 11248-11248/com.raywenderlich.myapplication E/hahaha: 10Hello Koin from com.raywenderlich.myapplication.MyViewModel@fce2528
+2022-09-07 13:51:39.641 11248-11248/com.raywenderlich.myapplication E/hahaha: 11Hello Koin from com.raywenderlich.myapplication.MyViewModel@fce2528
+2022-09-07 13:51:39.641 11248-11248/com.raywenderlich.myapplication E/hahaha: 12Hello Koin from com.raywenderlich.myapplication.MyViewModel@fce2528
+        * */
+
+        /*Sau khi xoay man hinh
+2022-09-07 13:52:05.615 11248-11248/com.raywenderlich.myapplication E/hahaha: 1Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 2Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 3Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 4Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@ce04519
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 5Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@ce04519
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 6Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@ce04519
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 7Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 8Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 9Hello Koin from com.raywenderlich.myapplication.MySimplePresenter@a6f601a
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 10Hello Koin from com.raywenderlich.myapplication.MyViewModel@fce2528
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 11Hello Koin from com.raywenderlich.myapplication.MyViewModel@fce2528
+2022-09-07 13:52:05.616 11248-11248/com.raywenderlich.myapplication E/hahaha: 12Hello Koin from com.raywenderlich.myapplication.MyViewModel@fce2528
         * */
     }
 }
