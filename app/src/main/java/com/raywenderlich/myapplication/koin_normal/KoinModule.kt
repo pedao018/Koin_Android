@@ -1,5 +1,6 @@
 package com.raywenderlich.myapplication.koin_normal
 
+import com.raywenderlich.myapplication.MainActivity
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -20,9 +21,18 @@ val appModule = module {
     viewModel { MyViewModel(get(named(KoinConstants.HelloRepository_Hello))) }
 }
 
+val mainActivityModule = module {
+    scope<MainActivity> {
+        scoped<HelloRepository>(qualifier = named(KoinConstants.Scoped_HelloRepository_Wohoo)) { WohooRepositoryImpl() }
+        scoped(qualifier = named(KoinConstants.MySimplePresenter_Scoped)) { MySimplePresenter(get(named(KoinConstants.Scoped_HelloRepository_Wohoo))) }
+    }
+}
+
 object KoinConstants {
     const val MySimplePresenter_Single = "MySimplePresenter_Single"
     const val MySimplePresenter_Factory = "MySimplePresenter_Factory"
     const val HelloRepository_Hello = "HelloRepository_Hello"
     const val HelloRepository_Wohoo = "HelloRepository_Wohoo"
+    const val Scoped_HelloRepository_Wohoo = "Scoped_HelloRepository_Wohoo"
+    const val MySimplePresenter_Scoped = "MySimplePresenter_Scoped"
 }

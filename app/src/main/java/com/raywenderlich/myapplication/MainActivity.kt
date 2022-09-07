@@ -11,10 +11,16 @@ import com.raywenderlich.myapplication.koin_normal.MySimplePresenter
 import com.raywenderlich.myapplication.koin_normal.MyViewModel
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import org.koin.android.scope.AndroidScopeComponent
+import org.koin.android.scope.createScope
+import org.koin.androidx.scope.activityScope
+import org.koin.androidx.scope.createScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AndroidScopeComponent {
+    override val scope: Scope by activityScope()
 
     //The by inject() function allows us to retrieve Koin instances, in Android components runtime (Activity, fragment, Service...)
     val singlePresenter: MySimplePresenter by inject(named(KoinConstants.MySimplePresenter_Single))
@@ -32,7 +38,13 @@ class MainActivity : AppCompatActivity() {
     val myHiPresenter: MyHiPresenter by inject()
     val hiViewModel: HiViewModel by viewModel()
 
+    val scopedPresenter: MySimplePresenter by inject(named(KoinConstants.MySimplePresenter_Scoped))
+
     private lateinit var binding: ActivityMainBinding
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         binding.btnTest.setOnClickListener { printLog() }
         binding.btnTestAnotation.setOnClickListener { printLogAnotation() }
+        binding.btnTestScoped.setOnClickListener { printLogScoped() }
     }
 
     private fun printLog() {
@@ -94,5 +107,9 @@ class MainActivity : AppCompatActivity() {
     private fun printLogAnotation() {
         Log.e("hahaha", "1${myHiPresenter.sayHi()}")
         Log.e("hahaha", "2${hiViewModel.sayHi()}")
+    }
+
+    private fun printLogScoped() {
+        Log.e("hahaha", "1${scopedPresenter.sayHello()}")
     }
 }
